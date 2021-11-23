@@ -11,26 +11,31 @@
   <!-- style file -->
   <link rel="stylesheet" href="style.css">
 
-<header><button> <a href="select.html">Select flight </button> </header>
+
+
+
+<header><button> <a href="select.html">Home </button> </header>
 
 
 
 
-  <title>demo</title>
+  <title>Flight</title>
 </head>
 
 <body>
   <!-- Title -->
   <div id="title">
-    <h2>Demo</h2>
+    <h2>Flight</h2>
   </div>
 
   <!-- demo insert input box and add button -->
   <div class="input-group mb-3" id="input-todo">
-    <input type="number" class="form-control" placeholder="primary key" id="demo-key">
-    <input type="text" class="form-control" placeholder="description" id="demo-description">
+    <input type="text" class="form-control" placeholder="departure city" id="departure_city">
+    <input type="text" class="form-control" placeholder="arrival city" id="arrival_city">
+    <input type="text" class="form-control" placeholder="departure_date" id="d_date">
+    <input type="text" class="form-control" placeholder="arrive_date" id="a_date">
     <div class="input-group-append">
-      <button class="btn btn-primary" type="button" onclick="insertDemo()">Add</button>
+      <button class="btn btn-primary" type="button" onclick="search_flight()">search</button>
     </div>
   </div>
   <!-- end of insert form -->
