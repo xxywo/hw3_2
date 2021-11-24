@@ -52,14 +52,23 @@
   <div class="input-group mb-3" id="input-todo">
     <input type="text" class="form-control" placeholder="departure city" id="departure_city">
     <input type="text" class="form-control" placeholder="arrival city" id="arrival_city">
-    <input type="text" class="form-control" placeholder="departure_date" id="d_date">
-    <input type="text" class="form-control" placeholder="arrive_date" id="a_date">
+    <input type="date" class="form-control" placeholder="departure_date" id="d_date">
+    <input type="date" class="form-control" placeholder="arrive_date" id="a_date">
+  
+  
     <div class="input-group-append">
       <button class="btn btn-primary" type="button" onclick="search_flight()">search</button>
     </div>
   </div>
-  <!-- end of insert form -->
 
+  <!-- end of insert form -->
+<div>
+    <input type="radio" id="oneWay" name="tripType" value="oneWay">
+    <label for="oneWay">One-way</label><br>
+    <input type="radio" id="roundTrip" name="tripType" value="roundTrip">
+    <label for="roundTrip">Round Trip</label><br>
+  </div>
+  
   <!-- dynamic table to display todo list -->
   <table class="table mt-5 text-center" id="demo-list">
     <thead>
