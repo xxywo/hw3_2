@@ -61,6 +61,8 @@ const displayFlights = () => {
     <th>${flights.a_city}</th>
     <th>${flights.scheduled_departure}</th>
     <th>${flights.scheduled_arrival}</th>
+    <th><button class="btn btn-danger" type="button" onclick="">BUY</button></th>
+
     </tr>`;
   })
   demoTable.innerHTML = tableHTML;
@@ -98,16 +100,35 @@ async function selectDemos() {
 }
 
 
-async function selectFlights() {
+async function selectFlights(id) {
+  // use try... catch... to catch 
+  
+  /*const input1 = document.querySelector('#departureCity');
+  const input2 = document.querySelector('#arrivalCity');
+  const input3 = document.querySelector('#d_date');
+  const input4 = document.querySelector('#a_date');
+  const key1 = input1.value;
+  const key2 = input2.value;
+  const key3 = input3.value;
+  const key4 = input4.value;*/
+  console.log("in main.j : id is ");
+  console.log(id);
+
   // use try... catch... to catch error
-  try {
+    // insert new demo to "http://localhost:5000/demos", with "POST" method
+   // const body = { key1: key1, key2: key2, key3: key3, key4: key4 };
+try{
+    // connect to heroku, remove localhost:port
+    const response = await fetch(`http://localhost:5000/flight/${id}`)
+    // const deletedDemo = await fetch(`/demos/${id}`, {
+     
 
     // GET all demos from "http://localhost:5000/demos"
-    const response = await fetch("http://localhost:5000/flight")
+    //const response = await fetch("http://localhost:5000/flight")
     // connect to heroku, remove localhost:port
     // const response = await fetch("/demos")
     const jsonData = await response.json();
-    // console.log(jsonData);
+    console.log(jsonData);
 
     setFlights(jsonData);
     displayFlights();
@@ -224,7 +245,14 @@ function handleSubmit(event) {
 
 form.addEventListener('submit', handleSubmit);
 // fake-submit the form to see data in the console! =)
-document.getElementById('button').addEventListener("click", search_flight);
+//let id = document.getElementById('departureCity').value
+
+
+
+//once click the button will go to selectflight
+//document.getElementById('button').addEventListener("click", selectFlights(result));
+
+
 
 function search_flight(){
   alert("I got clicked!")

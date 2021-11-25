@@ -42,14 +42,18 @@ app.get('/demos', async(req, res)=>{
 
 
 //get all data from flight 
-app.get('/flight', async(req, res)=>{
+//get the input as req
+app.get('/flight/:id', async(req, res)=>{
+  const { id } = req.params;
+  
+
   try{
     const allFlights = await pool.query(`SELECT departure.city as d_city, arrival.city as a_city, scheduled_departure, scheduled_arrival
     FROM flights
 JOIN airports as departure 
 ON departure.airport_code = flights.departure_airport
 JOIN airports as arrival
-ON arrival.airport_code = flights.arrival_airport`);
+ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code = $1`, [id]);
     res.json(allFlights.rows);
     console.log(allFlights);
   } catch(err){

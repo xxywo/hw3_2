@@ -50,18 +50,20 @@
           <label for="departureCity">DEPARTURE CITY</label>
           <select name="departureCity" id="departureCity">
             <option value="DME">DME</option>
-            <option value="VKO">VKO</option>
+            <option value="VKO" selected>VKO</option>
             <option value="ULV">ULV</option>
             <option value="LAX">LAX</option>
           </select>
+          
+</div>
       </div>
       <div>
         <label for="arrivalCities">ARRIVAL CITY</label>
         <select name="arrivalCity" id="arrivalCity">
-          <option value="Los Angeles">DME</option>
-          <option value="Paris">VKO</option>
-          <option value="Beijing">ULV</option>
-          <option value="Tokyo">LAX</option>
+          <option value="DME">DME</option>
+          <option value="VKO"selected>VKO</option>
+          <option value="ULV">ULV</option>
+          <option value="LAX">LAX</option>
         </select>
       </div>
 
@@ -78,10 +80,24 @@
     </div>
 
     <div class="input-group-append">
-      <button class="btn btn-primary" type="submit" id="button" onclick="selectFlights()">search</button>
+      <button class="btn btn-primary" type="submit" id="button" onclick="GetSelectedValue()">search</button>
   </div>
 
   </div>
+  <script>
+  function GetSelectedValue(){
+    var e = document.getElementById("departureCity");
+    var e1 = document.getElementById("arrivalCity");
+    var result = e.options[e.selectedIndex].value;
+    var result1 = e1.options[e1.selectedIndex].value;
+    console.log(result)
+    selectFlights(result)
+    
+  }
+
+</script>
+
+
 
   <!-- end of insert form -->
 
@@ -92,6 +108,7 @@
         <th>arrival city</th>
         <th>departure date</th>
         <th>arrival date</th>
+        <th> buy ticket</th>
       </tr>
     </thead>
     <!-- add todos in tbody by modying the HTML in main.js -->
