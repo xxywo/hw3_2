@@ -11,14 +11,7 @@
   <!-- style file -->
   <link rel="stylesheet" href="style.css">
 
-
-
-
-<header><button> <a href="select.html">Home </button> </header>
-
-
-
-
+<header id="header"><button> <a href="select.html"> Home </button> </header>
   <title>Flight</title>
 </head>
 
@@ -26,7 +19,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class = "navbar-nav">
       <li class="nav-item">
-        <a class= "nav-link" href="">More travel</a>
+        <a class= "nav-link" href="C:\Users\Thuy Ngo\Desktop\HW3\Final\hw3\public\moretravel.html">More travel</a>
       </li>
       <li class ="nav-item">
         <a class= "nav-link" href="">List your property</a>
@@ -38,54 +31,77 @@
         <a class= "nav-link" href="readme.txt">READ ME file</a>
       </li>
       <li class ="nav-item">
-        <button onclick="document.location='http://www.youtube.com'">Link to our Demo video</button>
+        <button onclick="document.location='http://www.youtube.com'">DEMO</button>
       </li>
 
     </ul>
   </nav>
   <!-- Title -->
   <div id="title">
-    <h2>Flight</h2>
+    <h2>WELCOME TO OUR FLIGHT BOOKING SERVICE</h2>
   </div>
 
   <!-- demo insert input box and add button -->
   <div class="input-group mb-3" id="input-todo">
 
-    <input type="text" class="form-control" placeholder="departure city" id="departure_city">
-    <input type="text" class="form-control" placeholder="arrival city" id="arrival_city">
-    <input type="date" class="form-control" placeholder="departure_date" id="d_date">
-    <input type="date" class="form-control" placeholder="arrive_date" id="a_date">
-  
-  
-    <div class="input-group-append">
-      <button class="btn btn-primary" type="button" onclick="search_flight()">search</button>
+
+    <form name="search_flight">
+      <div>
+          <label for="departureCity">DEPARTURE CITY</label>
+          <select name="departureCity" id="departureCity">
+            <option value="DME">DME</option>
+            <option value="VKO">VKO</option>
+            <option value="ULV">ULV</option>
+            <option value="LAX">LAX</option>
+          </select>
+      </div>
+      <div>
+        <label for="arrivalCities">ARRIVAL CITY</label>
+        <select name="arrivalCity" id="arrivalCity">
+          <option value="Los Angeles">DME</option>
+          <option value="Paris">VKO</option>
+          <option value="Beijing">ULV</option>
+          <option value="Tokyo">LAX</option>
+        </select>
+      </div>
+
     </div>
+    <div>
+      <label for="d_date">DEPARTING</label>
+      <input type="date" class="form-control" placeholder="departure_date" id="d_date">
+      Round Trip <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
+      One Way <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br>
+        <div id="ifYes" style="display:none">
+          <label for="a_date">RETURNING</label>
+          <input type="date" class="form-control" placeholder="arrive_date" id="a_date">
+        </div>
+    </div>
+
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="submit" id="button" onclick="selectFlights()">search</button>
+  </div>
+
   </div>
 
   <!-- end of insert form -->
 
-<div>
-    <input type="radio" id="oneWay" name="tripType" value="oneWay">
-    <label for="oneWay">One-way</label><br>
-    <input type="radio" id="roundTrip" name="tripType" value="roundTrip">
-    <label for="roundTrip">Round Trip</label><br>
-  </div>
-
-  <!-- dynamic table to display todo list -->
-  <table class="table mt-5 text-center" id="demo-list">
+  <table class="table mt-5 text-center" id="flights-list">
     <thead>
       <tr>
-        <th>Key</th>
-        <th>Description</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>departure city</th>
+        <th>arrival city</th>
+        <th>departure date</th>
+        <th>arrival date</th>
       </tr>
     </thead>
     <!-- add todos in tbody by modying the HTML in main.js -->
-    <tbody id="demo-table">
+    <tbody id="flights-table">
     </tbody>
   </table>
   <!-- End of dynamic table -->
+
+
+<!-- booking a ticket -->
 
 
   <!-- the popup modal, used for update the demo description -->

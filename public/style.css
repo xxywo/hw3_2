@@ -3,6 +3,22 @@
   margin: 50px 0px 20px 0px;
 }
 
+h2 {
+  color: #66bfbf;
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5 rem;
+  font-weight: normal;
+  padding-bottom: 10px;
+}
+
+#header {
+  color: #66bfbf;
+  font-family: "Montserrat", sans-serif;
+  font-size: 2px;
+  font-weight: normal;
+  padding-bottom: 10px;
+}
+
 #input-demo {
   width: 80%;
   text-align: center;
@@ -24,8 +40,8 @@
 }
 
 .dropbtn {
-  background-color: #3498db;
-  color: white;
+  background-color: #66bfbf;
+  color: #66bfbf;
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -34,7 +50,7 @@
 
 .dropbtn:hover,
 .dropbtn:focus {
-  background-color: #2980b9;
+  background-color: #66bfbf;
 }
 
 .dropdown {
@@ -45,7 +61,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
+  background-color: #66bfbf;
   min-width: 160px;
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -53,16 +69,49 @@
 }
 
 .dropdown-content a {
-  color: black;
+  color: #66bfbf;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
 .dropdown a:hover {
-  background-color: #ddd;
+  background-color: #66bfbf;
 }
 
 .show {
   display: block;
+}
+
+button {
+  background: #11cdd4;
+  background-image: -webkit-linear-gradient(top, #11cdd4, #11999e);
+  background-image: -moz-linear-gradient(top, #11cdd4, #11999e);
+  background-image: -ms-linear-gradient(top, #11cdd4, #11999e);
+  background-image: -o-linear-gradient(top, #11cdd4, #11999e);
+  background-image: linear-gradient(to bottom, #11cdd4, #11999e);
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 8px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+button:hover {
+  background: #30e3cb;
+  background-image: -webkit-linear-gradient(top, #30e3cb, #2bc4ad);
+  background-image: -moz-linear-gradient(top, #30e3cb, #2bc4ad);
+  background-image: -ms-linear-gradient(top, #30e3cb, #2bc4ad);
+  background-image: -o-linear-gradient(top, #30e3cb, #2bc4ad);
+  background-image: linear-gradient(to bottom, #30e3cb, #2bc4ad);
+  text-decoration: none;
+}
+
+body {
+  color: #40514e;
+  margin: 0;
+  font-family: "Marriweather', serif;
 }

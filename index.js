@@ -1,4 +1,3 @@
-alert("Hola")
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -35,11 +34,35 @@ app.get('/demos', async(req, res)=>{
   try{
     const allDemos = await pool.query(`SELECT * FROM demo`);
     res.json(allDemos.rows);
-    // console.log(allDemos);
+    console.log(allDemos);
   } catch(err){
     console.log(err.message);
   }
 });
+
+
+//get all data from flight 
+app.get('/flight', async(req, res)=>{
+  try{
+    const allFlights = await pool.query(`SELECT departure.city as d_city, arrival.city as a_city, scheduled_departure, scheduled_arrival
+    FROM flights
+JOIN airports as departure 
+ON departure.airport_code = flights.departure_airport
+JOIN airports as arrival
+ON arrival.airport_code = flights.arrival_airport`);
+    res.json(allFlights.rows);
+    console.log(allFlights);
+  } catch(err){
+
+    console.log(err.message);
+  }
+});
+
+
+
+
+
+
 
 //get a demo by id
 app.get('/demos/:id', async(req, res)=>{
@@ -85,6 +108,7 @@ app.delete("/demos/:id", async (req, res) => {
   }
 });
 
+//?????               
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/index.html'));
 });

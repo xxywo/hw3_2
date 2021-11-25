@@ -5,6 +5,12 @@ const setDemos = (data) => {
   demos = data;
 }
 
+let flights =[]; 
+const setFlights = (data) =>{
+  flights = data; 
+}
+
+
 // function edit demo
 const editDemo = (id) => {
 
@@ -38,8 +44,33 @@ const displayDemos = () => {
 
 }
 
+
+//function to display flight information
+const displayFlights = () => {
+  /*flights.sort((a, b) => {
+    return a.key - b.key;
+  });*/
+  const demoTable = document.querySelector('#flights-table');
+
+  // display all demos by modifying the HTML in "demo-table"
+  let tableHTML = "";
+  flights.map(flights =>{
+    tableHTML +=
+    `<tr departure=>
+    <th>${flights.d_city}</th>
+    <th>${flights.a_city}</th>
+    <th>${flights.scheduled_departure}</th>
+    <th>${flights.scheduled_arrival}</th>
+    </tr>`;
+  })
+  demoTable.innerHTML = tableHTML;
+
+}
+
 // select all the demos when the codes first run
 selectDemos();
+
+
 
 
 // The following are async function to select, insert, update and delete demos
@@ -60,6 +91,30 @@ async function selectDemos() {
     // setTimeout(() => {
     //   console.log(demos);
     // }, 100);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+
+async function selectFlights() {
+  // use try... catch... to catch error
+  try {
+
+    // GET all demos from "http://localhost:5000/demos"
+    const response = await fetch("http://localhost:5000/flight")
+    // connect to heroku, remove localhost:port
+    // const response = await fetch("/demos")
+    const jsonData = await response.json();
+    // console.log(jsonData);
+
+    setFlights(jsonData);
+    displayFlights();
+    // setTimeout(() => {
+    //   console.log(demos);
+    // }, 100);
+    console.log(flights); 
 
   } catch (err) {
     console.log(err.message);
@@ -149,15 +204,28 @@ function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
+
+function yesnoCheck() {
+  if (document.getElementById('yesCheck').checked) {
+      document.getElementById('ifYes').style.display = 'block';
   }
+  else document.getElementById('ifYes').style.display = 'none';
+
+}
+
+const form = document.forms.search_flight;
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const formData = new FormData(event.target);
+  const asString = new URLSearchParams(formData).toString();
+  console.log(asString);
+}
+
+form.addEventListener('submit', handleSubmit);
+// fake-submit the form to see data in the console! =)
+document.getElementById('button').addEventListener("click", search_flight);
+
+function search_flight(){
+  alert("I got clicked!")
 }
