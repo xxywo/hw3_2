@@ -29,6 +29,68 @@ app.post('/demos', async(req, res)=>{
   }
 });
 
+
+//transcation insert 
+app.post('/flights', async(req, res)=>{
+
+
+    const {vars1, vars2, vars3} = req.body;       //the row to insert 
+    // console.log(key, description);
+    const client = await pool.connect(); 
+try{
+    await client.query('BEGIN')
+    const queryText = 'INSERT INTO tickets (ticket_no, book_ref, passenger_id) VALUES($1, $2, $3)'
+    const res = await client.query(queryText, [vars1, vars3, vars3])
+   // const insertPhotoText = 'INSERT INTO photos(user_id, photo_url) VALUES ($1, $2)'
+    //const insertPhotoValues = [res.rows[0].id, 's3.bucket.foo']
+    //await client.query(insertPhotoText, insertPhotoValues)
+    console.log("insert success ")
+    await client.query('COMMIT')
+  } catch (e) {
+    await client.query('ROLLBACK')
+    throw e
+  } finally {
+    client.release()
+  }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let d; 
+let d1; 
+
+app.post('/flight', async(req, res)=>{
+  try{
+
+    const {key1, key2} = req.body;
+    // console.log(key, description);
+    d = key1; 
+    d1 = key2; 
+
+    console.log(key1, key2); 
+    //console.log("here")
+    //res.json(newDemo.rows[0]);          
+
+  } catch(err){
+    console.log(err.message);
+  }
+});
+
 //get all demo
 app.get('/demos', async(req, res)=>{
   try{
@@ -43,8 +105,10 @@ app.get('/demos', async(req, res)=>{
 
 //get all data from flight 
 //get the input as req
-app.get('/flight/:id', async(req, res)=>{
-  const { id } = req.params;
+app.get('/flight', async(req, res)=>{
+
+  
+  console.log(d, d1); 
   
 
   try{
@@ -53,7 +117,7 @@ app.get('/flight/:id', async(req, res)=>{
 JOIN airports as departure 
 ON departure.airport_code = flights.departure_airport
 JOIN airports as arrival
-ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code = $1`, [id]);
+ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code = $1 and arrival.airport_code = $2`, [d,d1]);
     res.json(allFlights.rows);
     console.log(allFlights);
   } catch(err){
@@ -122,3 +186,6 @@ const port = process.env.PORT || 5000;
 app.listen(port, ()=>{
   console.log(`server has started on port ${port}`);
 });
+
+
+

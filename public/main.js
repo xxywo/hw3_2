@@ -11,6 +11,8 @@ const setFlights = (data) =>{
 }
 
 
+
+
 // function edit demo
 const editDemo = (id) => {
 
@@ -50,7 +52,7 @@ const displayFlights = () => {
   /*flights.sort((a, b) => {
     return a.key - b.key;
   });*/
-  const demoTable = document.querySelector('#flights-table');
+  const flightTable = document.querySelector('#flights-table');
 
   // display all demos by modifying the HTML in "demo-table"
   let tableHTML = "";
@@ -61,11 +63,11 @@ const displayFlights = () => {
     <th>${flights.a_city}</th>
     <th>${flights.scheduled_departure}</th>
     <th>${flights.scheduled_arrival}</th>
-    <th><button class="btn btn-danger" type="button" onclick="">BUY</button></th>
+    <th><button class="btn btn-danger" type="button" onclick=" insertTicket(123, 234, 111)" >BUY</button></th>
 
     </tr>`;
   })
-  demoTable.innerHTML = tableHTML;
+  flightTable.innerHTML = tableHTML;
 
 }
 
@@ -100,7 +102,36 @@ async function selectDemos() {
 }
 
 
-async function selectFlights(id) {
+
+
+async function pass_data(input1, input2) {
+  
+  
+  const key1 = input1; 
+  const key2 = input2; 
+  
+  
+  try {
+    // insert new demo to "http://localhost:5000/demos", with "POST" method
+    const body = { key1: key1, key2: key2 };
+
+    // connect to heroku, remove localhost:port
+    const response = await fetch("http://localhost:5000/flight", {
+    // const response = await fetch("/demos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+   
+   
+
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+
+async function selectFlights() {
   // use try... catch... to catch 
   
   /*const input1 = document.querySelector('#departureCity');
@@ -111,15 +142,15 @@ async function selectFlights(id) {
   const key2 = input2.value;
   const key3 = input3.value;
   const key4 = input4.value;*/
-  console.log("in main.j : id is ");
-  console.log(id);
+  console.log("in selectflight function ")
 
   // use try... catch... to catch error
     // insert new demo to "http://localhost:5000/demos", with "POST" method
    // const body = { key1: key1, key2: key2, key3: key3, key4: key4 };
 try{
     // connect to heroku, remove localhost:port
-    const response = await fetch(`http://localhost:5000/flight/${id}`)
+    //const response = await fetch(url)
+    const response = await fetch(`http://localhost:5000/flight`)
     // const deletedDemo = await fetch(`/demos/${id}`, {
      
 
@@ -173,6 +204,65 @@ async function insertDemo() {
     console.log(err.message);
   }
 }
+
+
+//transaction insert 
+
+async function insertTicket(vars1, vars2, vars3) {
+  // read the demo description from input
+  //const inputKey = document.querySelector('#demo-key');
+  //const inputDesc = document.querySelector('#demo-description');
+  //const key = inputKey.value;
+  //const description = inputDesc.value;
+  // console.log(key, description);
+
+  // use try... catch... to catch error
+  try {
+    // insert new demo to "http://localhost:5000/demos", with "POST" method
+    const body = { vars1: vars1, vars2: vars2, vars3: vars3};
+
+    // connect to heroku, remove localhost:port
+    const response = await fetch("http://localhost:5000/flights", {
+    // const response = await fetch("/demos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+   
+   // const newDemo = await response.json();
+   // demos.push(newDemo);
+    //displayDemos();
+    //inputKey.value='';
+    //inputDesc.value='';
+
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // delete a demo by id
 async function deleteDemo(id) {
@@ -257,3 +347,11 @@ form.addEventListener('submit', handleSubmit);
 function search_flight(){
   alert("I got clicked!")
 }
+
+
+var e2 = document.getElementById("d_date");
+var e3 = document.getElementById("a_date");
+
+    //selectFlights(result, result1); 
+console.log("output time")
+console.log(e2, e3); 

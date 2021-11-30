@@ -64,6 +64,7 @@
           <option value="VKO"selected>VKO</option>
           <option value="ULV">ULV</option>
           <option value="LAX">LAX</option>
+          <option value="SVO">SVO</option>
         </select>
       </div>
 
@@ -90,8 +91,15 @@
     var e1 = document.getElementById("arrivalCity");
     var result = e.options[e.selectedIndex].value;
     var result1 = e1.options[e1.selectedIndex].value;
-    console.log(result)
-    selectFlights(result)
+    
+    var e2 = document.getElementById("d_date");
+    var e3 = document.getElementById("a_date");
+
+    //selectFlights(result, result1); 
+    console.log("output input"); 
+    console.log(result, result1); 
+    pass_data(result, result1);
+    selectFlights(); 
     
   }
 
