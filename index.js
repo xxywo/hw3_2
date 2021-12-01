@@ -41,6 +41,29 @@ charactersLength));
  return result;
 }
 
+//append file to sql 
+function append_file_sql(content){
+  console.log("create file"); 
+	const fs = require('fs')
+	const path = require('path')
+
+
+	try {
+
+		fs.appendFileSync(__dirname+'/nf.sql', content); 
+		//fs.appendFileSync('/Users/alice/Downloads/nf.sql', content); 
+		//console.log(__dirname+'/nf.sql'); 
+		//fs.appendFileSync('/home/y2021/fall/cs3380/dbs123/hw2/nf.sql', content); 
+
+	}
+	catch(err){
+		console.error(err); 
+	}
+}
+
+
+
+
 
 //transcation insert 
 app.post('/flights/:vars1', async(req, res)=>{
@@ -72,8 +95,8 @@ try{
     const check_query = `SELECT ticket_no FROM ticket_flights WHERE flight_id = $1 AND fare_conditions = $2 AND available_buy = $3`;
     const check = await client.query(check_query, [req.params.vars1, req.body.description, yes]); 
  
-
-
+    
+     
     console.log(check.rows[0].ticket_no); 
 
 
@@ -127,13 +150,22 @@ try{
 let d; 
 let d1; 
 
+let d_d; 
+let a_d; 
+
 app.post('/flight', async(req, res)=>{
   try{
 
-    const {key1, key2} = req.body;
+    //departure city   arrival city    departure date    arrival date
+    const {key1, key2, key3, key4} = req.body;
     // console.log(key, description);
     d = key1; 
     d1 = key2; 
+
+    d_d = key3; 
+    a_d = key4; 
+
+
 
     console.log(key1, key2); 
     //console.log("here")
@@ -162,6 +194,8 @@ app.get('/flight', async(req, res)=>{
 
   
   console.log(d, d1); 
+
+  console.log(d_d, a_d); 
   
 
   try{
@@ -170,7 +204,13 @@ app.get('/flight', async(req, res)=>{
 JOIN airports as departure 
 ON departure.airport_code = flights.departure_airport
 JOIN airports as arrival
-ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code = $1 and arrival.airport_code = $2`, [d,d1]);
+ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code = $1 and arrival.airport_code = $2 and DATE(scheduled_departure) =$3 and DATE(scheduled_arrival) = $4`, [d,d1, d_d, a_d]);
+    
+append_file_sql(`/* search for flight */`);
+
+//onst allFlights = await pool.query(`SELECT * FROM flights where DATE(scheduled_departure) = $1 and DATE(scheduled_arrival) = $2`, [d_d, a_d]); 
+
+
     res.json(allFlights.rows);
     console.log(allFlights);
   } catch(err){

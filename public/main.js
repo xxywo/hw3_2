@@ -153,17 +153,20 @@ async function selectDemos() {
 
 
 
-
-async function pass_data(input1, input2) {
+                     
+async function pass_data(input1, input2, input3, input4) {
   
   
   const key1 = input1; 
   const key2 = input2; 
+
+  const key3 = input3; 
+  const key4 = input4; 
   
   
   try {
     // insert new demo to "http://localhost:5000/demos", with "POST" method
-    const body = { key1: key1, key2: key2 };
+    const body = { key1: key1, key2: key2 , key3 : key3, key4 : key4};
 
     // connect to heroku, remove localhost:port
     const response = await fetch("http://localhost:5000/flight", {
