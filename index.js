@@ -183,7 +183,7 @@ ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code =
 
 
 
-
+//cancel 
 app.put("/flight/:id", async (req, res) => {
   const { id } = req.params;
   const client = await pool.connect(); 
