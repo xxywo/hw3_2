@@ -58,18 +58,68 @@ const displayFlights = () => {
   let tableHTML = "";
   flights.map(flights =>{
     tableHTML +=
-    `<tr departure=>
+    `<tr flight_id= ${flights.flight_id}>
+    <th>${flights.flight_id}</th>
     <th>${flights.d_city}</th>
     <th>${flights.a_city}</th>
     <th>${flights.scheduled_departure}</th>
     <th>${flights.scheduled_arrival}</th>
-    <th><button class="btn btn-danger" type="button" onclick=" insertTicket(123, 234, 111)" >BUY</button></th>
+    <th> <select name = "typeclass" id="travelClasses">
+    <option value="Economy"selected>Economy</option>
+    <option value ="Business">Business</option>
+  </select> </th>
+    <th><button class="btn btn-danger" type="button" onclick="jump_page(${flights.flight_id})" > BUY</button></th>
 
     </tr>`;
+    
   })
   flightTable.innerHTML = tableHTML;
 
 }
+
+
+
+function jump_page(id){
+ 
+  //<a href="payment.html">
+  var e1 = document.getElementById("travelClasses");
+  //var result = e.options[e.selectedIndex].value;
+  var result1 = e1.options[e1.selectedIndex].value;
+
+  insertTicket(id, result1);
+  
+  //selectFlights(result, result1); 
+  
+  //location.href = "payment.html"
+  
+   //pass flight id and selected class 
+
+  //if there are avaliable ticket -----> next page payment infor
+  //if not ticket avaliable -------> alert not enought ticket choose other flight 
+
+
+
+}
+
+
+
+async function GetSelectdBookValue(){
+  //var e = document.getElementById("numTicket");
+  var e1 = document.getElementById("travelClasses");
+  //var result = e.options[e.selectedIndex].value;
+  var result1 = e1.options[e1.selectedIndex].value;
+  
+  //selectFlights(result, result1); 
+  console.log("output input"); 
+  console.log(result1); 
+  //console.log(chosen_flight); 
+  //insertTicket('A000000000001', '3B54BB', '111')
+  //ticket_no book_ref  passenger_id 
+  // flight_id          random generate 
+
+}
+
+//onclick=" insertTicket('A000000000001', '3B54BB', '111')"
 
 // select all the demos when the codes first run
 selectDemos();
@@ -208,7 +258,7 @@ async function insertDemo() {
 
 //transaction insert 
 
-async function insertTicket(vars1, vars2, vars3) {
+async function insertTicket(vars1, vars2) {
   // read the demo description from input
   //const inputKey = document.querySelector('#demo-key');
   //const inputDesc = document.querySelector('#demo-description');
@@ -217,12 +267,17 @@ async function insertTicket(vars1, vars2, vars3) {
   // console.log(key, description);
 
   // use try... catch... to catch error
+  
   try {
-    // insert new demo to "http://localhost:5000/demos", with "POST" method
-    const body = { vars1: vars1, vars2: vars2, vars3: vars3};
 
+    const body = {description: vars2 };
+    // insert new demo to "http://localhost:5000/demos", with "POST" method
+    //const body = {vars1, vars2 };
+
+    
+    
     // connect to heroku, remove localhost:port
-    const response = await fetch("http://localhost:5000/flights", {
+    const response = await fetch(`http://localhost:5000/flights/${vars1}`, {
     // const response = await fetch("/demos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -311,6 +366,56 @@ async function updateDemo(id) {
   }
 }
 
+
+async function cancelTicket(id) {
+  //cancel ticket by ticket_no 
+  
+  
+
+  try {
+    // update a demo from "http://localhost:5000/demos/${id}", with "PUT" method
+    // connect to heroku, remove localhost:port
+    //const body = {key: id};
+    const response = await fetch(`http://localhost:5000/flight/${id}`, {
+    // const response = await fetch(`/demos/${id}`, {
+      method: "PUT",
+      headers: {"Content-Type": "application/json"},
+      //body: JSON.stringify(body)
+    })
+
+   
+
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -355,3 +460,6 @@ var e3 = document.getElementById("a_date");
     //selectFlights(result, result1); 
 console.log("output time")
 console.log(e2, e3); 
+
+
+

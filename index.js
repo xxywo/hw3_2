@@ -30,20 +30,73 @@ app.post('/demos', async(req, res)=>{
 });
 
 
+function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * 
+charactersLength));
+ }
+ return result;
+}
+
+
 //transcation insert 
-app.post('/flights', async(req, res)=>{
+app.post('/flights/:vars1', async(req, res)=>{
 
+  //pass flight id and selected class 
+  
 
-    const {vars1, vars2, vars3} = req.body;       //the row to insert 
+  
+ 
+
+  
+  
+    //vars: ticket_no   book_ref passenger_id flight_id
+    //const {vars1, vars2, vars3} = req.body;       //the row to insert 
     // console.log(key, description);
+    var stauts = 'book' //mark as reserved in status  when user cancel, mark as cancel 
+    var no = 'no'
+    var yes = 'yes'
     const client = await pool.connect(); 
 try{
+    console.log("get to here")
+    
     await client.query('BEGIN')
-    const queryText = 'INSERT INTO tickets (ticket_no, book_ref, passenger_id) VALUES($1, $2, $3)'
-    const res = await client.query(queryText, [vars1, vars3, vars3])
-   // const insertPhotoText = 'INSERT INTO photos(user_id, photo_url) VALUES ($1, $2)'
-    //const insertPhotoValues = [res.rows[0].id, 's3.bucket.foo']
-    //await client.query(insertPhotoText, insertPhotoValues)
+
+    //first check if there is avaiable ticket 
+
+    //const check_query = `SELECT * FROM ticket_flights WHERE flight_id = $1`;
+    //const check = await client.query(check_query, [req.params.vars1]); 
+    const check_query = `SELECT ticket_no FROM ticket_flights WHERE flight_id = $1 AND fare_conditions = $2 AND available_buy = $3`;
+    const check = await client.query(check_query, [req.params.vars1, req.body.description, yes]); 
+ 
+
+
+    console.log(check.rows[0].ticket_no); 
+
+
+    //random generate book_ref and passenger id 
+    book_ref = makeid(6); 
+    console.log(book_ref); 
+    passenger_id = makeid(3); 
+    console.log(passenger_id); 
+
+    //insert into ticket table 
+    const queryText = 'INSERT INTO ticket (ticket_no, book_ref, passenger_id, status) VALUES($1, $2, $3, $4)'
+    const res = await client.query(queryText, [check.rows[0].ticket_no, book_ref, passenger_id, stauts])
+
+    //update in ticket flight to available_buy to "no"
+    const queryText2 = 'UPDATE ticket_flights SET available_buy = $1 WHERE ticket_no = $2'
+    await client.query(queryText2, [no, check.rows[0].ticket_no]); 
+
+
+    //insert into passenger_info
+    //insert into bookings
+    //insert into payment table 
+
+    //console.log(res.rows); 
     console.log("insert success ")
     await client.query('COMMIT')
   } catch (e) {
@@ -112,7 +165,7 @@ app.get('/flight', async(req, res)=>{
   
 
   try{
-    const allFlights = await pool.query(`SELECT departure.city as d_city, arrival.city as a_city, scheduled_departure, scheduled_arrival
+    const allFlights = await pool.query(`SELECT flights.flight_id, departure.city as d_city, arrival.city as a_city, scheduled_departure, scheduled_arrival
     FROM flights
 JOIN airports as departure 
 ON departure.airport_code = flights.departure_airport
@@ -124,6 +177,42 @@ ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code =
 
     console.log(err.message);
   }
+});
+
+
+
+
+
+
+app.put("/flight/:id", async (req, res) => {
+  const { id } = req.params;
+  const client = await pool.connect(); 
+try{
+  var yes = 'yes'; 
+  var status = 'cancel'
+  await client.query('BEGIN')
+  
+  
+
+  //update in ticket flight to available_buy to "yes"   avaliable for buy
+  const queryText = 'UPDATE ticket_flights SET available_buy = $1 WHERE ticket_no = $2'
+  await client.query(queryText, [yes, id]); 
+
+
+  //update in ticket status to "cancel"
+
+  const queryText2 = 'UPDATE ticket SET status = $1 WHERE ticket_no = $2'
+  await client.query(queryText2, [status, id]); 
+
+ 
+  console.log("cancel success ")
+  await client.query('COMMIT')
+} catch (e) {
+  await client.query('ROLLBACK')
+  throw e
+} finally {
+  client.release()
+}
 });
 
 
