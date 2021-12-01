@@ -75,7 +75,7 @@
     </div>
     <div>
       <label for="d_date">DEPARTING</label>
-      <input type="date" class="form-control" placeholder="departure_date" id="d_date">
+      <input id = "d_date" type="date" class="form-control" placeholder="departure_date">
       Round Trip <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
       One Way <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br>
         <div id="ifYes" style="display:none">
@@ -96,12 +96,16 @@
     var result = e.options[e.selectedIndex].value;
     var result1 = e1.options[e1.selectedIndex].value;
     
-    var e2 = document.getElementById("d_date");
-    var e3 = document.getElementById("a_date");
+    var date1 = document.getElementById("d_date").value;
+    var date2 = document.getElementById("a_date").value;
 
     //selectFlights(result, result1); 
     console.log("output input"); 
-    console.log(result, result1); 
+    //console.log(result, result1); 
+
+    console.log(date1, date2); 
+
+
     pass_data(result, result1);
     selectFlights(); 
     
