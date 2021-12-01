@@ -199,6 +199,16 @@ app.get('/flight', async(req, res)=>{
   
 
   try{
+
+    const select1 = `SELECT flights.flight_id, departure.city as d_city, arrival.city as a_city, scheduled_departure, scheduled_arrival `
+    const select2 = `FROM flights `
+    const select3 = `JOIN airports as departure `
+    const select4 = `ON departure.airport_code = flights.departure_airport `
+    const select5  = `JOIN airports as arrival `
+    const select6  = `ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code = ${d} and arrival.airport_code = ${d1} and DATE(scheduled_departure) = ${d_d} and DATE(scheduled_arrival) = ${a_d} `
+
+
+
     const allFlights = await pool.query(`SELECT flights.flight_id, departure.city as d_city, arrival.city as a_city, scheduled_departure, scheduled_arrival
     FROM flights
 JOIN airports as departure 
@@ -206,7 +216,20 @@ ON departure.airport_code = flights.departure_airport
 JOIN airports as arrival
 ON arrival.airport_code = flights.arrival_airport WHERE departure.airport_code = $1 and arrival.airport_code = $2 and DATE(scheduled_departure) =$3 and DATE(scheduled_arrival) = $4`, [d,d1, d_d, a_d]);
     
+
 append_file_sql(`/* search for flight */`);
+append_file_sql('\n'); 
+append_file_sql(select1)
+append_file_sql('\n'); 
+append_file_sql(select2)
+append_file_sql('\n'); 
+append_file_sql(select3)
+append_file_sql('\n'); 
+append_file_sql(select4)
+append_file_sql('\n'); 
+append_file_sql(select5)
+append_file_sql('\n'); 
+append_file_sql(select6)
 
 //onst allFlights = await pool.query(`SELECT * FROM flights where DATE(scheduled_departure) = $1 and DATE(scheduled_arrival) = $2`, [d_d, a_d]); 
 
