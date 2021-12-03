@@ -56,22 +56,17 @@ function jump_page(id){
   //var result = e.options[e.selectedIndex].value;
   var result1 = e1.options[e1.selectedIndex].value;
 
-  run = insertTicket(id, result1);
-  if(run == true){
-    location.href = "payment.html"
-
-  }
-  else{
-    alert("ticket sell out, please replan your trip!")
-  }
- 
-  //selectFlights(result, result1); 
+  try{
+  insertTicket(id, result1);
   
-   //pass flight id and selected class 
 
-  //if there are avaliable ticket -----> next page payment infor
-  //if not ticket avaliable -------> alert not enought ticket choose other flight 
-
+    location.href = "payment.html"
+  }
+  catch (err) {
+    console.log(err.message);
+    alert("ticket sell out, please replan your trip!")
+    
+  }
 
 
 }
@@ -276,7 +271,7 @@ async function insertTicket(vars1, vars2) {
       body: JSON.stringify(body)
     });
 
-    return true; 
+    
    
    // const newDemo = await response.json();
    // demos.push(newDemo);
@@ -286,7 +281,8 @@ async function insertTicket(vars1, vars2) {
 
   } catch (err) {
     console.log(err.message);
-    return false; 
+   
+    
   }
 }
 

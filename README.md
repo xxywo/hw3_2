@@ -1,8 +1,11 @@
 # cosc3380
-This is example codes for cosc3380 class
+# psid : 1891418 dbs123  xiaoyuan xu
+# 
 
-You can use our database server or online database server(elephantsql), please first add your login information in creds.js file.
-If you want to run the code, please first create a table named as demo first.(CREATE TABLE demo(
-   key integer PRIMARY KEY,
-   description VARCHAR(255)  
- );
+
+
+# install node modules 
+# npm install pg
+
+# node index.js
+# run select.html first

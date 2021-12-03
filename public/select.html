@@ -99,9 +99,7 @@
     <div class="input-group-append">
       <button class="btn btn-primary" type="submit" id="button" onclick="GetSelectedValue()">search</button>
   </div>
-  <div class="input-group-append">
-    <button class="btn btn-primary" type="submit" id="button" onclick="GetSelectedValue2()">indirect flights search</button>
-</div>
+  
 
   </div>
   <script>
@@ -131,26 +129,7 @@
 
 </script>
 
-<script>
-  function GetSelectedValue2(){
-    
-    var e = document.getElementById("departureCity");
-    var e1 = document.getElementById("arrivalCity");
-    var result = e.options[e.selectedIndex].value;
-    var result1 = e1.options[e1.selectedIndex].value;
-    
-    var date1 = document.getElementById("d_date").value;
-    var date2 = document.getElementById("a_date").value;
 
-    
-
-    console.log(date1, date2); 
-    pass_data(result, result1, date1, date2); //pass city and time
-    selectIndirectFlights(); 
-    
-  }
-
-</script>
 
 
 
