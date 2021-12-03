@@ -18,23 +18,24 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class = "navbar-nav">
-      <li class="nav-item">
-        <a class= "nav-link" href="C:\Users\Thuy Ngo\Desktop\HW3\Final\hw3\public\moretravel.html">More travel</a>
-      </li>
-      <li class ="nav-item">
-        <a class= "nav-link" href="">List your property</a>
-      </li>
-      <li class ="nav-item">
-        <a class= "nav-link" href="">Support</a>
-      </li>
+      
       <li class ="nav-item">
         <a class= "nav-link" href="readme.txt">READ ME file</a>
+      </li>
+      <li class ="nav-item">
+        <a class= "nav-link" href="https://lucid.app/lucidchart/30580357-1716-48f4-b261-b84e13bc3b3c/edit?invitationId=inv_9289f047-6412-4ae0-bc50-eb453a3e32c8">ER diagram (Log In Required)</a>
       </li>
       <li class ="nav-item">
         <button onclick="document.location='http://www.youtube.com'">DEMO</button>
       </li>
       <li class ="nav-item">
+        <a class= "nav-link" href="select.html">search ticket</a>
+      </li>
+      <li class ="nav-item">
         <a class= "nav-link" href="cancel.html">cancel ticket</a>
+      </li>
+      <li class ="nav-item">
+        <a class= "nav-link" href="boarding_passes.html">see your boarding pass</a>
       </li>
       
 
@@ -51,12 +52,18 @@
 
     <form name="search_flight">
       <div>
-          <label for="departureCity">DEPARTURE CITY</label>
-          <select name="departureCity" id="departureCity">
-            <option value="DME">DME</option>
-            <option value="VKO" selected>VKO</option>
-            <option value="ULV">ULV</option>
-            <option value="LAX">LAX</option>
+        <label for="departureCity">DEPARTURE CITY</label>
+        <select name="departureCity" id="departureCity">
+          <option value="DMO">DMO</option>
+          <option value="SVO" selected>SVO</option>
+          <option value="ULV">ULV</option>
+          <option value="ULY">ULY</option>
+          <option value="VKO">VKO</option>
+          <option value="QFA" selected>QFA</option>
+          <option value="BAW">BAW</option>
+          <option value="JAL">JAL</option>
+          <option value="EVA">EVA</option>
+          <option value="KAL">KAL</option>
           </select>
           
 </div>
@@ -64,11 +71,16 @@
       <div>
         <label for="arrivalCities">ARRIVAL CITY</label>
         <select name="arrivalCity" id="arrivalCity">
-          <option value="DME">DME</option>
-          <option value="VKO"selected>VKO</option>
+          <option value="DMO">DMO </option>
+          <option value="SVO" selected>SVO</option>
           <option value="ULV">ULV</option>
-          <option value="LAX">LAX</option>
-          <option value="SVO">SVO</option>
+          <option value="ULY">ULY</option>
+          <option value="VKO">VKO</option>
+          <option value="QFA" selected>QFA</option>
+          <option value="BAW">BAW</option>
+          <option value="JAL">JAL</option>
+          <option value="EVA">EVA</option>
+          <option value="KAL">KAL</option>
         </select>
       </div>
 
@@ -87,6 +99,9 @@
     <div class="input-group-append">
       <button class="btn btn-primary" type="submit" id="button" onclick="GetSelectedValue()">search</button>
   </div>
+  <div class="input-group-append">
+    <button class="btn btn-primary" type="submit" id="button" onclick="GetSelectedValue2()">indirect flights search</button>
+</div>
 
   </div>
   <script>
@@ -102,12 +117,36 @@
     //selectFlights(result, result1); 
     console.log("output input"); 
     //console.log(result, result1); 
-
+    console.log(result, result1); 
     console.log(date1, date2); 
 
 
     pass_data(result, result1, date1, date2); //pass city and time
+
+
     selectFlights(); 
+    
+    
+  }
+
+</script>
+
+<script>
+  function GetSelectedValue2(){
+    
+    var e = document.getElementById("departureCity");
+    var e1 = document.getElementById("arrivalCity");
+    var result = e.options[e.selectedIndex].value;
+    var result1 = e1.options[e1.selectedIndex].value;
+    
+    var date1 = document.getElementById("d_date").value;
+    var date2 = document.getElementById("a_date").value;
+
+    
+
+    console.log(date1, date2); 
+    pass_data(result, result1, date1, date2); //pass city and time
+    selectIndirectFlights(); 
     
   }
 

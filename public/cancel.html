@@ -40,8 +40,8 @@
   <!-- demo insert input box and add button -->
   <div class="input-group mb-3" id="input-todo">
       <form>
-            <label for="boardingNo">Insert Your ticket number here</label>
-            <input type="placeholder" id="ticket_no">
+            <label for="boardingNo">Insert Your ticket number here (13 Characters) </label>
+            <input type="placeholder" id="ticket_no" minlength='13' maxlength='13'>
       </form>
       <button class="btn btn-primary" type="submit" id="button" onclick="GetCancelTicket()">search</button>
   </div>

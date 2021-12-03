@@ -114,4 +114,11 @@ body {
   color: #40514e;
   margin: 0;
   font-family: "Marriweather', serif;
+};
+
+input:invalid {
+  border: 2px dashed red;
 }
+input:invalid:focus {
+  background-image: linear-gradient(rgb(180, 0, 33), lightgreen);
+};
